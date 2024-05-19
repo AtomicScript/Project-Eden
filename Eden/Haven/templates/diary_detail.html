@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2 class="mb-4">PsyDuck: Diary Entry</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ object.title }}</h4>
+            <p class="card-text text-muted mb-1">Created: {{ object.created_at }}</p>
+            <p class="card-text"><strong>Thoughts for the Day:</strong> {{ object.thoughts_for_the_day }}</p>
+            <p class="card-text"><strong>Feeling:</strong> {{ object.get_feeling_display }}</p>
+            <p class="card-text"><strong>Gratitude:</strong> {{ object.gratitude }}</p>
+            <p class="card-text"><strong>Expectation:</strong> {{ object.expectation }}</p>
+            <p class="card-text"><strong>Reflection:</strong> {{ object.reflection }}</p>
+            
+            {% if user.is_authenticated and object.user == user %}
+            <div class="mt-3">
+                <a href="{% url 'diary_update' object.id %}" class="btn btn-primary me-2">Update</a>
+                <a href="{% url 'diary_delete' object.id %}" class="btn btn-danger">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
